@@ -37,7 +37,8 @@ function remove(id) {
 };
 
 function findSteps(id) {
-    return db("steps as st")
-        .join("schems as sc", "sc.scheme_id", "st.step_number")
-        .select(["sc.scheme_name as scheme_name", "st.step_number as step_number", "st.instructions as instructions"])
+    return db("schemes as sc")
+        .join("steps as st", "sc.id", "st.step_number")
+        .select("sc.scheme_name as scheme_name", "st.step_number as step_number", "st.instructions as instructions")
+        .where({"sc.id": id})
 }
